@@ -44,8 +44,10 @@ with st.sidebar:
     st.header("Ações")
     uploaded_file = st.file_uploader("📁 Upload da planilha (.xlsx)", type=["xlsx"])
     if st.button("🔄 Resetar tabela (limpar)"):
-        if st.confirm := st.button("Tenho certeza que quero limpar"):
-            st.session_state.pop("df", None)
+    confirmar_limpeza = st.button("Tenho certeza que quero limpar")
+    if confirmar_limpeza:
+        st.session_state.pop("df", None)
+        st.success("Tabela limpa com sucesso!")
     st.markdown("---")
     st.info("Dica: edite valores diretamente na tabela abaixo. Use o botão 'Adicionar linha' para inserir rápido.")
 
@@ -120,7 +122,7 @@ with st.form(key="add_form", clear_on_submit=True):
             "Previsão (Sim/Não)": previsao_input,
             "Observações": obs_input
         }
-        df = df.append(new_row, ignore_index=True)
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
         st.session_state.df = ensure_columns(df)
         st.success("Lançamento adicionado.")
 
