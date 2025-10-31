@@ -43,7 +43,7 @@ def ensure_columns(df: pd.DataFrame):
 with st.sidebar:
     st.header("Ações")
     uploaded_file = st.file_uploader("📁 Upload da planilha (.xlsx)", type=["xlsx"])
-    if st.button("🔄 Resetar tabela (limpar)"):
+if st.button("🔄 Resetar tabela (limpar)"):
     confirmar_limpeza = st.button("Tenho certeza que quero limpar")
     if confirmar_limpeza:
         st.session_state.pop("df", None)
